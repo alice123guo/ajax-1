@@ -24,24 +24,14 @@ var server = http.createServer(function(request, response){
   if(path === '/index.html'){
     response.statusCode = 200;
     response.setHeader('Content-Type', 'text/html;charset=utf-8');
-    response.write(`
-    <!DOCTYPE html>
-    <head>
-      <title>AJAX学习1</title>
-      <link rel="stylesheet" href="/style.css">
-    </head>
-    <body>
-      <h1>ajax学习</h1>
-      <script src="/main.js"></script>
-    </body>
-    </html> `);
+    response.write(fs.readFileSync('./public/index.html'));
     response.end();
   } else if(path === '/main.js'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
-    response.write(`console.log('这是JS')`)
+    response.write(fs.readFileSync('./public/main.js'))
     response.end()
-  }
+  } 
   else {
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
