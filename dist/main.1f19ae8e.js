@@ -119,6 +119,27 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"main.js":[function(require,module,exports) {
 console.log('这里是main.js  12222111');
+
+//监听点击CSS按钮的时候是不是真的请求成功
+getCSS.onclick = function () {
+  //步骤1：创建一个HttpRequest函数
+  var request = new XMLHttpRequest();
+  //步骤2：调用函数的Open方法
+  request.open('GET', '/style.css'); //MDN搜索HttpRequest open MDN找用法
+  //步骤3：监听对象的onload和onerror事件
+  request.onload = function () {
+    console.log("request.response内容：" + request.response);
+    //把css内容加载到HTML中(创建新标签style内容为请求回应的东西，然后插入到head中)
+    var style = document.createElement('style');
+    style.innerHTML = request.response;
+    document.head.appendChild(style);
+  };
+  request.onerror = function () {
+    console.log('失败了');
+  };
+  //步骤4：发送请求（调用对象的send方法）
+  request.send();
+};
 },{}],"C:/Users/guo/AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
