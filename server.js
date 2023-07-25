@@ -36,11 +36,15 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(fs.readFileSync('./public/main.js'))
     response.end()
-  }
-   else if(path === '/123.js'){
+  } else if(path === '/123.js'){
     response.statusCode = 200
     response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
     response.write(fs.readFileSync('./public/123.js'))
+    response.end()
+  } else if(path === '/3.html'){
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/html;charset=utf-8')
+    response.write(fs.readFileSync('public/3.html'))
     response.end()
   }
   else {

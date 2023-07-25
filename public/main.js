@@ -1,19 +1,5 @@
 console.log('这里是main.js  12222111')
 
-getJS.onclick=()=>{
-    const r= new XMLHttpRequest();
-    r.open('get','/123.js');
-    r.onload = ()=>{
-        console.log('r.response请求响应的内容是：'+r.response)
-        const script = document.createElement('script');
-        script.innerHTML = r.response;
-        document.body.appendChild(script)
-    }
-    r.onerror=()=>{
-        console.log('失败')
-    }
-    r.send();
-}
 
 //监听点击CSS按钮的时候是不是真的请求成功
 getCSS.onclick=()=>{
@@ -33,5 +19,39 @@ getCSS.onclick=()=>{
         console.log('失败了')
     }
     //步骤4：发送请求（调用对象的send方法）
+    request.send();
+}
+
+//AJAX加载JS 
+getJS.onclick=()=>{
+    const request= new XMLHttpRequest();
+    request.open('get','/123.js');
+    request.onload = ()=>{
+        console.log('request.response请求响应的内容是：'+request.response)
+        const script = document.createElement('script');
+        script.innerHTML = request.response;
+        document.body.appendChild(script)
+    }
+    request.onerror=()=>{
+        console.log('失败')
+    }
+    request.send();
+}
+
+
+//AJAX加载HTML
+getHTML.onclick = ()=>{
+    const request = new XMLHttpRequest();
+    request.open('get','/3.html');
+    request.onload =()=>{
+        console.log(request.response)
+        
+        const div = document.createElement('div')
+        div.innerHTML = request.response
+        document.body.appendChild(div)
+    } 
+    request.onerror=()=>{
+        console.log('失败')
+    }
     request.send();
 }
