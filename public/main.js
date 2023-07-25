@@ -1,5 +1,20 @@
 console.log('这里是main.js  12222111')
 
+getJS.onclick=()=>{
+    const r= new XMLHttpRequest();
+    r.open('get','/123.js');
+    r.onload = ()=>{
+        console.log('r.response请求响应的内容是：'+r.response)
+        const script = document.createElement('script');
+        script.innerHTML = r.response;
+        document.body.appendChild(script)
+    }
+    r.onerror=()=>{
+        console.log('失败')
+    }
+    r.send();
+}
+
 //监听点击CSS按钮的时候是不是真的请求成功
 getCSS.onclick=()=>{
     //步骤1：创建一个HttpRequest函数
