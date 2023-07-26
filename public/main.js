@@ -90,3 +90,21 @@ getXML.onclick=()=>{
     }
     request.send();
 }
+
+
+
+//请求JSON
+getJSON.onclick = ()=>{
+    const r = new XMLHttpRequest()
+    r.open('get','/5.json')
+    r.onreadystatechange=()=>{
+        if(r.readyState === 4 && r.status===200){
+            const object = JSON.parse(r.response)
+            console.log(object)
+            console.log('json本来的内容为:'+r.response)
+            //更改标题内容
+            myName.textContent = object.name
+        }
+    }
+    r.send()
+}

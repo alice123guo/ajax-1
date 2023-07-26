@@ -51,8 +51,13 @@ var server = http.createServer(function(request, response){
     response.setHeader('Content-Type', 'text/xml ; charset=utf-8')
     response.write(fs.readFileSync('public/4.xml'))
     response.end()
-
-  }else{
+  }else if(path==='/5.json'){
+    response.setHeader('Content-Type', 'text/json; charset=utf-8')
+    response.write(fs.readFileSync('public/5.json'))
+    response.end()
+  }
+  
+  else{
     response.statusCode = 404
     response.setHeader('Content-Type', 'text/html;charset=utf-8')
     response.write(`你输入的路径不存在对应的内容`)
