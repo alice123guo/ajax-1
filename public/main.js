@@ -42,16 +42,51 @@ getJS.onclick=()=>{
 //AJAX加载HTML
 getHTML.onclick = ()=>{
     const request = new XMLHttpRequest();
-    request.open('get','/3.html');
-    request.onload =()=>{
-        console.log(request.response)
-        
-        const div = document.createElement('div')
-        div.innerHTML = request.response
-        document.body.appendChild(div)
+    request.open('get','/3.html');//r.readyState=1
+
+    //监听onreadystatechange事件
+    request.onreadystatechange =()=>{
+                console.log(request.response)
+
+        console.log(request.readyState)//监听接下来的readyState(有01234几个阶段)
+        if (request.readyState ===4){//等于四只是下载完成但不知道是成功的完成还是失败的页面下载完
+            console.log('如果网页成功加载的status是2xx,如果加载失败的话状态码是:4xx或者是5xx,现在已经下载完成状态码为:'+request.status)
+
+            if(request.status >=200 && request.status<300){
+                console.log('想要的页面下载完成')
+                console.log('打印出来请求的内容'+request.response)
+                const div = document.createElement('div')
+                div.innerHTML = request.response
+                document.body.appendChild(div)
+            }else{
+                alert('加载html失败')
+            }
+        }
     } 
-    request.onerror=()=>{
-        console.log('失败')
+    request.send();//r.readyState=2
+}
+
+
+
+//请求XML页面
+getXML.onclick=()=>{
+    const request = new XMLHttpRequest()
+    request.open('get','/4.xml')
+    request.onreadystatechange = ()=>{
+        //直接把状态码固定成200
+        if(request.readyState===4 && request.status === 200){
+            console.log('xml请求返回的是一个dom对象'+typeof request.responseXML+'这个对象的内容是:'+request.response)//这是一个dom对象
+            
+            //在控制台显示
+            const dom = request.responseXML;
+            const text = dom.documentElement.getElementsByTagName('warning')[0].textContent.trim()
+            console.log(text)
+            
+            //在页面显示
+            const div =document.createElement('div')
+            div.innerHTML = request.response
+            document.body.appendChild(div)
+        }
     }
     request.send();
 }
