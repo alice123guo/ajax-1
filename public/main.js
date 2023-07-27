@@ -1,5 +1,21 @@
-console.log('这里是main.js  12222111')
-
+//请求下一页内容
+let n = 1;
+getPage.onclick= ()=>{
+    const r = new XMLHttpRequest()
+    r.open('get',`/page${ n+1 }.json`)
+    r.onreadystatechange =()=>{
+        if(r.readyState===4 && r.status===200){
+            const array = JSON.parse(r.response)
+            array.forEach(item => {
+                const li = document.createElement('li')
+                li.textContent = item.id
+                x.appendChild(li)//把每一项li放在id为x的ul内
+            });
+            n+=1
+        }
+    }
+    r.send()
+}
 
 //监听点击CSS按钮的时候是不是真的请求成功
 getCSS.onclick=()=>{
@@ -108,3 +124,4 @@ getJSON.onclick = ()=>{
     }
     r.send()
 }
+
